@@ -39,6 +39,8 @@ export default class HttpManager extends Singleton {
                     Logger.log(`${url}请求失败:${xhr.status}`);
                     !LocalUtils.isNil(failFunc) && failFunc.call(thisArg);
                 }
+            } else {
+                Logger.log(`xhr.readyState is not 4, xhr.readyState is ${xhr.readyState}`);
             }
         };
 

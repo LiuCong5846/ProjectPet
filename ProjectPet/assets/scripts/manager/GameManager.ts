@@ -129,7 +129,7 @@ export default class GameManager extends Singleton {
 
     //#region 玩家属性 // TODO 等后端和配置
     get money() {
-        return this._petInfo.money;
+        return this._petInfo.money as number;
     }
     set money(val: number) {
         this._petInfo.money = val;

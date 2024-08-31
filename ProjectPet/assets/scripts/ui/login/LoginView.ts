@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, LabelComponent, Label } from 'cc';
+import { _decorator, Component, Node, LabelComponent, Label, EditBox } from 'cc';
 import ViewBase from '../../core/mvc/ViewBase';
 import { ButtonComp } from '../../component/ButtonComp';
 import { HomeControl } from '../home/HomeControl';
@@ -14,6 +14,7 @@ import GameProtocolManager from '../../manager/GameProtocolManager';
 import { WECHAT } from 'cc/env';
 import { SdkManager } from '../../manager/SdkManager';
 import GameManager from '../../manager/GameManager';
+import GameConfig from '../../GameConfig';
 const { ccclass, property } = _decorator;
 
 @ccclass('LoginView')
@@ -24,6 +25,10 @@ export class LoginView extends ViewBase {
     private loginBtn2: ButtonComp = null;
     @property(Label)
     private loginLab: Label = null;
+    @property(Node)
+    private debugNode: Node = null;
+    @property(EditBox)
+    private editBox: EditBox = null;
 
     protected _show(): void {
         this.loginLab.string = "";
@@ -33,6 +38,11 @@ export class LoginView extends ViewBase {
 
         this.loginBtn.node.active = true;
         this.loginBtn2.node.active = false;
+
+        this.debugNode.active = true;
+        if (WECHAT) {
+            this.debugNode.active = false;
+        }
     }
 
     private onLoginBtnClocked() {
@@ -56,15 +66,11 @@ export class LoginView extends ViewBase {
     }
 
     private onSendLogin() {
-        if (WECHAT) {
-            GameProtocolManager.Instance.sendLogin(
-                this.loginGameS,
-                this.loginGameF,
-                this,
-            );
-        } else {
-            this.loginGameS();
-        }
+        GameProtocolManager.Instance.sendLogin(
+            this.loginGameS,
+            this.loginGameF,
+            this,
+        );
     }
 
     private onWXLoginHangleF() {
@@ -85,6 +91,11 @@ export class LoginView extends ViewBase {
     private loginGameF() {
         this.loginLab.string = "登入失败";
         this.loginBtn2.node.active = true;
+    }
+
+    private editBoxHandle() {
+        GameConfig.code = this.editBox.string;
+        Logger.log("Update Code: ", GameConfig.code);
     }
 }
 
