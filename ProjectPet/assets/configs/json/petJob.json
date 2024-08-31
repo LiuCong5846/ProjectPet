@@ -1,0 +1,65 @@
+{
+  "1": {
+    "type": 0,
+    "typeDesc": "搬砖",
+    "jobType": 0,
+    "money": 20,
+    "minutes": 60,
+    "schoolId": null,
+    "level": 0
+  },
+  "2": {
+    "type": 1,
+    "typeDesc": "保安",
+    "jobType": 1,
+    "money": 30,
+    "minutes": 60,
+    "schoolId": "[10003]",
+    "level": 12
+  },
+  "3": {
+    "type": 2,
+    "typeDesc": "文案",
+    "jobType": 2,
+    "money": 38,
+    "minutes": 60,
+    "schoolId": "[20001]",
+    "level": 20
+  },
+  "4": {
+    "type": 3,
+    "typeDesc": "翻译",
+    "jobType": 2,
+    "money": 44,
+    "minutes": 60,
+    "schoolId": "[20001,20002]",
+    "level": 20
+  },
+  "5": {
+    "type": 4,
+    "typeDesc": "作者",
+    "jobType": 2,
+    "money": 48,
+    "minutes": 60,
+    "schoolId": "[30001]",
+    "level": 34
+  },
+  "6": {
+    "type": 5,
+    "typeDesc": "程序员",
+    "jobType": 3,
+    "money": 50,
+    "minutes": 60,
+    "schoolId": "[30002]",
+    "level": 40
+  },
+  "7": {
+    "type": 6,
+    "typeDesc": "大学教授",
+    "jobType": 4,
+    "money": 60,
+    "minutes": 60,
+    "schoolId": "[30001,30002,30003]",
+    "level": 46
+  }
+}

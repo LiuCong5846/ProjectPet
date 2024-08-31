@@ -1,0 +1,702 @@
+{
+  "1": {
+    "exp": 3,
+    "hungry": 3100,
+    "clean": 3100,
+    "mood": 1000,
+    "health": 1000
+  },
+  "2": {
+    "exp": 12,
+    "hungry": 3150,
+    "clean": 3150,
+    "mood": 1020,
+    "health": 1000
+  },
+  "3": {
+    "exp": 26,
+    "hungry": 3200,
+    "clean": 3200,
+    "mood": 1040,
+    "health": 1000
+  },
+  "4": {
+    "exp": 45,
+    "hungry": 3250,
+    "clean": 3250,
+    "mood": 1060,
+    "health": 1000
+  },
+  "5": {
+    "exp": 70,
+    "hungry": 3300,
+    "clean": 3300,
+    "mood": 1080,
+    "health": 1000
+  },
+  "6": {
+    "exp": 100,
+    "hungry": 3350,
+    "clean": 3350,
+    "mood": 1100,
+    "health": 1000
+  },
+  "7": {
+    "exp": 136,
+    "hungry": 3400,
+    "clean": 3400,
+    "mood": 1120,
+    "health": 1000
+  },
+  "8": {
+    "exp": 177,
+    "hungry": 3450,
+    "clean": 3450,
+    "mood": 1140,
+    "health": 1000
+  },
+  "9": {
+    "exp": 224,
+    "hungry": 3500,
+    "clean": 3500,
+    "mood": 1160,
+    "health": 1000
+  },
+  "10": {
+    "exp": 276,
+    "hungry": 3550,
+    "clean": 3550,
+    "mood": 1180,
+    "health": 1000
+  },
+  "11": {
+    "exp": 333,
+    "hungry": 3600,
+    "clean": 3600,
+    "mood": 1200,
+    "health": 1100
+  },
+  "12": {
+    "exp": 396,
+    "hungry": 3650,
+    "clean": 3650,
+    "mood": 1220,
+    "health": 1100
+  },
+  "13": {
+    "exp": 464,
+    "hungry": 3700,
+    "clean": 3700,
+    "mood": 1240,
+    "health": 1100
+  },
+  "14": {
+    "exp": 538,
+    "hungry": 3750,
+    "clean": 3750,
+    "mood": 1260,
+    "health": 1100
+  },
+  "15": {
+    "exp": 617,
+    "hungry": 3800,
+    "clean": 3800,
+    "mood": 1280,
+    "health": 1100
+  },
+  "16": {
+    "exp": 701,
+    "hungry": 3850,
+    "clean": 3850,
+    "mood": 1300,
+    "health": 1100
+  },
+  "17": {
+    "exp": 791,
+    "hungry": 3900,
+    "clean": 3900,
+    "mood": 1320,
+    "health": 1100
+  },
+  "18": {
+    "exp": 886,
+    "hungry": 3950,
+    "clean": 3950,
+    "mood": 1340,
+    "health": 1100
+  },
+  "19": {
+    "exp": 987,
+    "hungry": 4000,
+    "clean": 4000,
+    "mood": 1360,
+    "health": 1100
+  },
+  "20": {
+    "exp": 1093,
+    "hungry": 4050,
+    "clean": 4050,
+    "mood": 1380,
+    "health": 1100
+  },
+  "21": {
+    "exp": 1204,
+    "hungry": 4100,
+    "clean": 4100,
+    "mood": 1400,
+    "health": 1200
+  },
+  "22": {
+    "exp": 1321,
+    "hungry": 4150,
+    "clean": 4150,
+    "mood": 1420,
+    "health": 1200
+  },
+  "23": {
+    "exp": 1443,
+    "hungry": 4200,
+    "clean": 4200,
+    "mood": 1440,
+    "health": 1200
+  },
+  "24": {
+    "exp": 1571,
+    "hungry": 4250,
+    "clean": 4250,
+    "mood": 1460,
+    "health": 1200
+  },
+  "25": {
+    "exp": 1704,
+    "hungry": 4300,
+    "clean": 4300,
+    "mood": 1480,
+    "health": 1200
+  },
+  "26": {
+    "exp": 1843,
+    "hungry": 4350,
+    "clean": 4350,
+    "mood": 1500,
+    "health": 1200
+  },
+  "27": {
+    "exp": 1987,
+    "hungry": 4400,
+    "clean": 4400,
+    "mood": 1520,
+    "health": 1200
+  },
+  "28": {
+    "exp": 2136,
+    "hungry": 4450,
+    "clean": 4450,
+    "mood": 1540,
+    "health": 1200
+  },
+  "29": {
+    "exp": 2291,
+    "hungry": 4500,
+    "clean": 4500,
+    "mood": 1560,
+    "health": 1200
+  },
+  "30": {
+    "exp": 2451,
+    "hungry": 4550,
+    "clean": 4550,
+    "mood": 1580,
+    "health": 1200
+  },
+  "31": {
+    "exp": 2887,
+    "hungry": 4600,
+    "clean": 4600,
+    "mood": 1600,
+    "health": 1300
+  },
+  "32": {
+    "exp": 3335,
+    "hungry": 4650,
+    "clean": 4650,
+    "mood": 1620,
+    "health": 1300
+  },
+  "33": {
+    "exp": 3796,
+    "hungry": 4700,
+    "clean": 4700,
+    "mood": 1640,
+    "health": 1300
+  },
+  "34": {
+    "exp": 4271,
+    "hungry": 4750,
+    "clean": 4750,
+    "mood": 1660,
+    "health": 1300
+  },
+  "35": {
+    "exp": 4760,
+    "hungry": 4800,
+    "clean": 4800,
+    "mood": 1680,
+    "health": 1300
+  },
+  "36": {
+    "exp": 5263,
+    "hungry": 4850,
+    "clean": 4850,
+    "mood": 1700,
+    "health": 1300
+  },
+  "37": {
+    "exp": 5781,
+    "hungry": 4900,
+    "clean": 4900,
+    "mood": 1720,
+    "health": 1300
+  },
+  "38": {
+    "exp": 6315,
+    "hungry": 4950,
+    "clean": 4950,
+    "mood": 1740,
+    "health": 1300
+  },
+  "39": {
+    "exp": 6864,
+    "hungry": 5000,
+    "clean": 5000,
+    "mood": 1760,
+    "health": 1300
+  },
+  "40": {
+    "exp": 7429,
+    "hungry": 5050,
+    "clean": 5050,
+    "mood": 1780,
+    "health": 1300
+  },
+  "41": {
+    "exp": 8010,
+    "hungry": 5100,
+    "clean": 5100,
+    "mood": 1800,
+    "health": 1400
+  },
+  "42": {
+    "exp": 8609,
+    "hungry": 5150,
+    "clean": 5150,
+    "mood": 1820,
+    "health": 1400
+  },
+  "43": {
+    "exp": 9225,
+    "hungry": 5200,
+    "clean": 5200,
+    "mood": 1840,
+    "health": 1400
+  },
+  "44": {
+    "exp": 9859,
+    "hungry": 5250,
+    "clean": 5250,
+    "mood": 1860,
+    "health": 1400
+  },
+  "45": {
+    "exp": 10512,
+    "hungry": 5300,
+    "clean": 5300,
+    "mood": 1880,
+    "health": 1400
+  },
+  "46": {
+    "exp": 11184,
+    "hungry": 5350,
+    "clean": 5350,
+    "mood": 1900,
+    "health": 1400
+  },
+  "47": {
+    "exp": 11876,
+    "hungry": 5400,
+    "clean": 5400,
+    "mood": 1920,
+    "health": 1400
+  },
+  "48": {
+    "exp": 12588,
+    "hungry": 5450,
+    "clean": 5450,
+    "mood": 1940,
+    "health": 1400
+  },
+  "49": {
+    "exp": 13321,
+    "hungry": 5500,
+    "clean": 5500,
+    "mood": 1960,
+    "health": 1400
+  },
+  "50": {
+    "exp": 14075,
+    "hungry": 5550,
+    "clean": 5550,
+    "mood": 1980,
+    "health": 1400
+  },
+  "51": {
+    "exp": 14852,
+    "hungry": 5600,
+    "clean": 5600,
+    "mood": 2000,
+    "health": 1500
+  },
+  "52": {
+    "exp": 15651,
+    "hungry": 5650,
+    "clean": 5650,
+    "mood": 2020,
+    "health": 1500
+  },
+  "53": {
+    "exp": 16474,
+    "hungry": 5700,
+    "clean": 5700,
+    "mood": 2040,
+    "health": 1500
+  },
+  "54": {
+    "exp": 17321,
+    "hungry": 5750,
+    "clean": 5750,
+    "mood": 2060,
+    "health": 1500
+  },
+  "55": {
+    "exp": 18193,
+    "hungry": 5800,
+    "clean": 5800,
+    "mood": 2080,
+    "health": 1500
+  },
+  "56": {
+    "exp": 19090,
+    "hungry": 5850,
+    "clean": 5850,
+    "mood": 2100,
+    "health": 1500
+  },
+  "57": {
+    "exp": 20014,
+    "hungry": 5900,
+    "clean": 5900,
+    "mood": 2120,
+    "health": 1500
+  },
+  "58": {
+    "exp": 20965,
+    "hungry": 5950,
+    "clean": 5950,
+    "mood": 2140,
+    "health": 1500
+  },
+  "59": {
+    "exp": 21944,
+    "hungry": 6000,
+    "clean": 6000,
+    "mood": 2160,
+    "health": 1500
+  },
+  "60": {
+    "exp": 22951,
+    "hungry": 6050,
+    "clean": 6050,
+    "mood": 2180,
+    "health": 1500
+  },
+  "61": {
+    "exp": 23989,
+    "hungry": 6100,
+    "clean": 6100,
+    "mood": 2200,
+    "health": 1600
+  },
+  "62": {
+    "exp": 25056,
+    "hungry": 6150,
+    "clean": 6150,
+    "mood": 2220,
+    "health": 1600
+  },
+  "63": {
+    "exp": 26155,
+    "hungry": 6200,
+    "clean": 6200,
+    "mood": 2240,
+    "health": 1600
+  },
+  "64": {
+    "exp": 27286,
+    "hungry": 6250,
+    "clean": 6250,
+    "mood": 2260,
+    "health": 1600
+  },
+  "65": {
+    "exp": 28450,
+    "hungry": 6300,
+    "clean": 6300,
+    "mood": 2280,
+    "health": 1600
+  },
+  "66": {
+    "exp": 29649,
+    "hungry": 6350,
+    "clean": 6350,
+    "mood": 2300,
+    "health": 1600
+  },
+  "67": {
+    "exp": 30882,
+    "hungry": 6400,
+    "clean": 6400,
+    "mood": 2320,
+    "health": 1600
+  },
+  "68": {
+    "exp": 32152,
+    "hungry": 6450,
+    "clean": 6450,
+    "mood": 2340,
+    "health": 1600
+  },
+  "69": {
+    "exp": 33459,
+    "hungry": 6500,
+    "clean": 6500,
+    "mood": 2360,
+    "health": 1600
+  },
+  "70": {
+    "exp": 34805,
+    "hungry": 6550,
+    "clean": 6550,
+    "mood": 2380,
+    "health": 1600
+  },
+  "71": {
+    "exp": 36190,
+    "hungry": 6600,
+    "clean": 6600,
+    "mood": 2400,
+    "health": 1700
+  },
+  "72": {
+    "exp": 37615,
+    "hungry": 6650,
+    "clean": 6650,
+    "mood": 2420,
+    "health": 1700
+  },
+  "73": {
+    "exp": 39083,
+    "hungry": 6700,
+    "clean": 6700,
+    "mood": 2440,
+    "health": 1700
+  },
+  "74": {
+    "exp": 40593,
+    "hungry": 6750,
+    "clean": 6750,
+    "mood": 2460,
+    "health": 1700
+  },
+  "75": {
+    "exp": 42148,
+    "hungry": 6800,
+    "clean": 6800,
+    "mood": 2480,
+    "health": 1700
+  },
+  "76": {
+    "exp": 43748,
+    "hungry": 6850,
+    "clean": 6850,
+    "mood": 2500,
+    "health": 1700
+  },
+  "77": {
+    "exp": 45396,
+    "hungry": 6900,
+    "clean": 6900,
+    "mood": 2520,
+    "health": 1700
+  },
+  "78": {
+    "exp": 47092,
+    "hungry": 6950,
+    "clean": 6950,
+    "mood": 2540,
+    "health": 1700
+  },
+  "79": {
+    "exp": 48837,
+    "hungry": 7000,
+    "clean": 7000,
+    "mood": 2560,
+    "health": 1700
+  },
+  "80": {
+    "exp": 50634,
+    "hungry": 7050,
+    "clean": 7050,
+    "mood": 2580,
+    "health": 1700
+  },
+  "81": {
+    "exp": 52483,
+    "hungry": 7100,
+    "clean": 7100,
+    "mood": 2600,
+    "health": 1800
+  },
+  "82": {
+    "exp": 54387,
+    "hungry": 7150,
+    "clean": 7150,
+    "mood": 2620,
+    "health": 1800
+  },
+  "83": {
+    "exp": 56347,
+    "hungry": 7200,
+    "clean": 7200,
+    "mood": 2640,
+    "health": 1800
+  },
+  "84": {
+    "exp": 58364,
+    "hungry": 7250,
+    "clean": 7250,
+    "mood": 2660,
+    "health": 1800
+  },
+  "85": {
+    "exp": 60440,
+    "hungry": 7300,
+    "clean": 7300,
+    "mood": 2680,
+    "health": 1800
+  },
+  "86": {
+    "exp": 62577,
+    "hungry": 7350,
+    "clean": 7350,
+    "mood": 2700,
+    "health": 1800
+  },
+  "87": {
+    "exp": 64777,
+    "hungry": 7400,
+    "clean": 7400,
+    "mood": 2720,
+    "health": 1800
+  },
+  "88": {
+    "exp": 67042,
+    "hungry": 7450,
+    "clean": 7450,
+    "mood": 2740,
+    "health": 1800
+  },
+  "89": {
+    "exp": 69373,
+    "hungry": 7500,
+    "clean": 7500,
+    "mood": 2760,
+    "health": 1800
+  },
+  "90": {
+    "exp": 71772,
+    "hungry": 7550,
+    "clean": 7550,
+    "mood": 2780,
+    "health": 1800
+  },
+  "91": {
+    "exp": 74242,
+    "hungry": 7600,
+    "clean": 7600,
+    "mood": 2800,
+    "health": 2000
+  },
+  "92": {
+    "exp": 76784,
+    "hungry": 7650,
+    "clean": 7650,
+    "mood": 2820,
+    "health": 2000
+  },
+  "93": {
+    "exp": 79401,
+    "hungry": 7700,
+    "clean": 7700,
+    "mood": 2840,
+    "health": 2000
+  },
+  "94": {
+    "exp": 82094,
+    "hungry": 7750,
+    "clean": 7750,
+    "mood": 2860,
+    "health": 2000
+  },
+  "95": {
+    "exp": 84867,
+    "hungry": 7800,
+    "clean": 7800,
+    "mood": 2880,
+    "health": 2000
+  },
+  "96": {
+    "exp": 87721,
+    "hungry": 7850,
+    "clean": 7850,
+    "mood": 2900,
+    "health": 2000
+  },
+  "97": {
+    "exp": 90659,
+    "hungry": 7900,
+    "clean": 7900,
+    "mood": 2920,
+    "health": 2000
+  },
+  "98": {
+    "exp": 93683,
+    "hungry": 7950,
+    "clean": 7950,
+    "mood": 2940,
+    "health": 2000
+  },
+  "99": {
+    "exp": 96796,
+    "hungry": 8000,
+    "clean": 8000,
+    "mood": 2960,
+    "health": 2000
+  },
+  "100": {
+    "exp": 100000,
+    "hungry": 8050,
+    "clean": 8050,
+    "mood": 2980,
+    "health": 2000
+  }
+}

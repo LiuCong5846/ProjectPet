@@ -1,0 +1,5 @@
+{
+    "imports": {
+        "pb": "./assets/scripts/Protobuf/pb.js"
+    }
+}

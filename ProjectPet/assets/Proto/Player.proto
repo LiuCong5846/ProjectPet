@@ -1,0 +1,84 @@
+syntax = "proto3";
+package com.wmy.pets.model.proto.Player;
+
+//玩家信息 101
+message UserInfo{
+    int32 id = 1;       //玩家ID
+    string nickname = 2;    //宠物昵称
+    int32 sex = 3;    //宠物性别
+    string wx_name = 4;    //微信名称
+    string wx_head = 5;      //微信头像
+}
+
+//宠物信息 102
+message PetsInfo{
+    int32 id = 1;       //宠物ID
+    int32 level = 2;    //宠物等级
+    int32 exp = 3;    //宠物经验
+    int32 growth_rate = 4;      //宠物成长速率
+    int32 val_hunger = 5;       //当前饥饿值
+    int32 val_clean = 6;       //当前清洁值
+    int32 val_mood = 7;       //当前心情值
+    int32 val_health = 8;       //当前健康值
+    int32 health = 9;       //当前健康状态
+    int32 action = 10;      //当前动作  0待机 1工作 2学习 3旅游
+    int32 action2 = 11;     //当前动作2 具体什么工作 学习的科目
+    int64 action_end_time = 12;    //动作结束时间
+    int32 nurse_status = 13;    // 保姆总开关 0关闭 1开启
+    int64 nurse_time = 14;       //保姆剩余时长(秒)
+    int64 nurse_queue_time = 15;    //保姆队列时间(秒)
+    int32 nurse_auto_feed = 16;   //保姆自动喂食开关 0关闭 1开启
+    int32 nurse_auto_work = 17;   //保姆自动工作开关 0关闭 1开启
+    int32 nurse_auto_study = 18;  //保姆自动学习开关 0关闭 1开启
+    int64 money = 19;    //元宝数量
+}
+
+//保姆日志 103
+message  NurseLog{
+    int32 id = 1;       //日志ID
+    int32 userId = 2;    //用户ID
+    string operate = 3;  //操作类型
+    string log = 4;     //日志内容
+    int64 create_time = 5;    //事件时间
+}
+
+//保姆日志 列表 104
+message NurseLogList{
+    repeated NurseLog nurse_log = 1;
+}
+
+//道具 105
+message Prop{
+    int32 id = 1;   //道具ID
+    int32 num = 2;  //道具数量
+}
+
+//宠物背包 106
+message PetsBag{
+    repeated Prop prop = 1;
+}
+
+//托管道具列表 107
+message NursePropList{
+    repeated Prop prop = 1;
+}
+
+//科目 201
+message Subject{
+    int32 id = 1; //科目ID
+    int32 process = 2; //进度 学了几节课 注意不是百分比
+}
+
+
+//学校 202
+message School{
+    int32 qualification = 1; //学历 0小学 1中学 2大学
+    int32 process= 2; //进度 学完了几个科目 注意不是百分比
+    repeated Subject subject = 3; //科目列表
+}
+
+//学校总览
+message SchoolList{
+    int32 curEducation = 1; //当前学历
+    repeated School school = 2; //学校列表
+}

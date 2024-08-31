@@ -1,0 +1,21 @@
+{
+  "name": "ProjectPet",
+  "uuid": "bd8601d2-5807-4c82-b46c-2aed039ff29f",
+  "creator": {
+    "version": "3.7.4"
+  },
+  "dependencies": {
+    "base64-js": "^1.5.1",
+    "js-base64": "^3.7.7",
+    "long": "^5.2.3",
+    "protobufjs-cli": "^1.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "protobufjs": "^7.4.0"
+  },
+  "scripts": {
+    "buildproto": "npm run protocli -- ./assets/Proto ./assets/scripts/Protobuf ./assets/scripts/Protobuf pb",
+    "protocli": "node ./tools/build_proto.js"
+  }
+}

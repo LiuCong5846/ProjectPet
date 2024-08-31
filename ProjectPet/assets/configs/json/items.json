@@ -1,0 +1,83 @@
+{
+  "100001": {
+    "itemName": "馒头",
+    "type": 1,
+    "dataType": "{\"hunger\": 100}",
+    "desc": null,
+    "value": 5,
+    "shop": 1,
+    "resName": "item_1"
+  },
+  "100002": {
+    "itemName": "蛋炒饭",
+    "type": 1,
+    "dataType": "{\"hunger\": 500}",
+    "desc": null,
+    "value": 20,
+    "shop": 1,
+    "resName": "item_3"
+  },
+  "200001": {
+    "itemName": "肥皂",
+    "type": 2,
+    "dataType": "{\"clean\": 100}",
+    "desc": null,
+    "value": 5,
+    "shop": 1,
+    "resName": "item_23"
+  },
+  "200002": {
+    "itemName": "洗发水",
+    "type": 2,
+    "dataType": "{\"clean\": 500}",
+    "desc": null,
+    "value": 20,
+    "shop": 1,
+    "resName": "item_22"
+  },
+  "300001": {
+    "itemName": "跳绳",
+    "type": 3,
+    "dataType": "{\"mood\": 100}",
+    "desc": null,
+    "value": 10,
+    "shop": 1,
+    "resName": "item_9"
+  },
+  "300002": {
+    "itemName": "拼图",
+    "type": 3,
+    "dataType": "{\"mood\": 350}",
+    "desc": null,
+    "value": 30,
+    "shop": 1,
+    "resName": "item_16"
+  },
+  "400001": {
+    "itemName": "维生素C",
+    "type": 4,
+    "dataType": "{\"health\": 100}",
+    "desc": null,
+    "value": 50,
+    "shop": 1,
+    "resName": "item_15"
+  },
+  "410000": {
+    "itemName": "还魂丹",
+    "type": 5,
+    "dataType": null,
+    "desc": "宠物死亡时使用，用于复活宠物",
+    "value": 50,
+    "shop": 1,
+    "resName": "item_11"
+  },
+  "410001": {
+    "itemName": "经验水",
+    "type": 5,
+    "dataType": "{\"exp\": 50}",
+    "desc": null,
+    "value": 50,
+    "shop": 1,
+    "resName": "item_24"
+  }
+}

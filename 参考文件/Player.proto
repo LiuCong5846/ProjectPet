@@ -1,0 +1,136 @@
+syntax = "proto3";
+package com.wmy.zh.model.proto.Player;
+
+//玩家信息
+message UserInfo{
+    int32 server_id = 1;       //服务器ID
+    int32 id = 2;       //玩家ID
+    string name = 3;    //玩家名称
+    string head = 4;    //玩家头像
+    int32 level = 5;    //玩家等级
+    int32 exp = 6;      //玩家经验
+}
+
+//玩家总属性
+message UserAttribute{
+    int64 combat_power = 1; //玩家战力
+    map<int32, int32> attribute = 2; //各属性
+}
+
+//卡池信息
+message CardPool{
+    int32 leve = 1; //等级
+    int32 upgrade_time = 2; //升级结束时间
+}
+
+//玩家所有卡槽信息
+message PartInfoList{
+    repeated PartInfo part_infos = 1;
+}
+
+//单个卡槽信息
+message PartInfo{
+    int32 part_id = 1;  //卡槽类型
+    CardInfo card_info = 2; //卡牌信息
+}
+//卡牌信息
+message CardInfo{
+    string card_id = 1; //卡牌唯一id
+    int32 config_id = 2; //卡牌配置id
+    int32 level = 3; //卡牌等级
+    int64 combat_power = 4; //卡牌战斗力
+    map<int32, int32> attribute = 5;    //卡牌属性
+}
+//当前开出的卡牌
+message OpenCard{
+    repeated CardInfo card_info = 1;
+}
+
+//玩家背包道具信息
+message ItemList {
+    map<int32, int32> item_info = 1;
+}
+
+//战报总信息
+message BattleInfo{
+    repeated BattleUnit units = 1;//战斗单位
+    repeated RoundInfo rounds = 2;//所有战斗回合
+    bool result = 3; //是否胜利 1胜利 0失败
+}
+
+//战斗单位
+message BattleUnit{
+    int32 id = 1;//战斗单位id，玩家id||怪物Id
+    int32 type = 2;//1.玩家 2.怪物
+    int32 health = 3;//战前血量
+}
+
+//每回合信息
+message RoundInfo{
+    int32 index = 1;//回合数
+    repeated ActionInfo actions = 2;//回合内战斗的行为
+}
+
+//回合内的行动信息
+message ActionInfo{
+    int32 actor = 1;//行动方
+    int32 target = 2;//目标方（被攻击方）
+    int32 type = 3;//结果类型 1.普通攻击 2.反击 3.连击 4.治疗
+    int32 damage = 4;//对对方造成的伤害
+    int32 health = 5;//自己恢复的生命值
+    bool hit = 6;//是否暴击
+    bool stun = 7;//是否被击晕
+    bool miss = 8;//是否被闪避
+    int32 hp_actor_before = 9; //行动方 战前血量
+    int32 hp_actor_after = 10; //行动方 战后血量
+    int32 hp_target_before = 11; //目标方 战前血量
+    int32 hp_target_after = 12; //目标方 战后血量
+}
+
+//冒险
+message AdventureInfo{
+    int32 pass_level = 1; //挑战成功的关卡
+    int32 today_sweep = 2;//今天扫荡次数
+}
+
+//武将 201
+message GeneralInfo{
+    string id = 1; //每个武将的唯一id
+    int32 config_id = 2;  //general_id
+    int32 level = 3;    //等级
+    int32 stage = 4;    //目前的阶级(星星)
+    int32 exp = 5;      //当前经验
+    map<int32, int32> attribute = 6;//属性
+}
+//武将背包 202
+message GeneralBag{
+    repeated GeneralInfo general_info_list = 1;
+}
+//武将酒馆 203
+message GeneralTavern{
+    repeated GeneralInfo general_info_list = 1;//待招募的武将
+    int32 refresh_time = 2; //下次刷新酒馆的时间
+    int32 wish_count = 3;//许愿进度
+    int32 target_id = 4;//许愿的武将配置id
+}
+//上阵武将 204
+message GeneralBattle{
+    string battle_id = 1;//上阵的武将 general_id
+}
+//装备 205
+message EquipmentInfo{
+    string id = 1;//装备唯一id
+    int32 config_id = 2;//装备配置id
+    int32 level = 3;//装备等级
+    map<int32, int32> attribute = 4;//属性
+}
+
+//装备背包 206
+message EquipmentBag{
+    repeated EquipmentInfo equipment_list = 1;
+}
+
+//当前装上的装备 207
+message GeneralEquipmentList{
+    repeated string ids = 1;
+}

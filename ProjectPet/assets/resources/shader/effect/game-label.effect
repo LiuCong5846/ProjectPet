@@ -1,0 +1,313 @@
+// Copyright (c) 2017-2020 Xiamen Yaji Software Co., Ltd.
+CCEffect %{
+  techniques:
+  - passes:
+    - vert: vs:vert
+      frag: fs:frag
+      depthStencilState:
+        depthTest: false
+        depthWrite: false
+      blendState:
+        targets:
+        - blend: true
+          blendSrc: src_alpha
+          blendDst: one_minus_src_alpha
+          blendDstAlpha: one_minus_src_alpha
+      rasterizerState:
+        cullMode: none
+      properties:
+        alphaThreshold: { value: 0.5 }
+        useGradient: { value: 0.0 }
+        startColor: { value: [1.0, 1.0, 1.0, 1.0], editor: { type: color }}
+        endColor: { value: [1.0, 1.0, 1.0, 1.0], editor: { type: color }}
+        horizontal: { value: 0.0 }
+        vertical: { value: 1.0 }
+        useOutGlow: { value: 0.0 }
+        outGlowColor: { value: [1.0, 1.0, 1.0, 1.0], editor: { type: color, tooltip: "发光颜色" } } 
+        outGlowColorSize: { value: 0.15, editor: { tooltip: "发光宽度", range: [0.0, 1.0], } }
+        outGlowThreshold: { value: 1.0, editor: { tooltip: "发光阈值", range: [0.0, 1.0] } }
+        useShadow1: { value: 0.0 }
+        shadowColor1: { value: [1.0, 1.0, 1.0, 1.0], editor: { type: color } }
+        shadowOffset1: { value: [0.0, 0.0] }
+        useShadow2: { value: 0.0 }
+        shadowColor2: { value: [1.0, 1.0, 1.0, 1.0], editor: { type: color } }
+        shadowOffset2: { value: [0.0, 0.0] }
+        useGray1: { value: 0.0 }
+        useGray2: { value: 0.0 }
+        horizontalOffsetFactor: { value: 0.0 }
+        verticalOffsetFactor: { value: 0.0 }
+        offsetScaleFactor: { value: 0.0 }
+        useOffset: { value: 0.0 }
+        useCurvature: { value: 0.0 }
+        curvatureFactor: { value: 0.0 }
+}%
+
+CCProgram vs %{
+  precision highp float;
+
+  #include <cc-global>
+
+  #if USE_LOCAL
+    #include <cc-local>
+  #endif
+
+  #if SAMPLE_FROM_RT
+    #include <common/common-define>
+  #endif
+
+  in vec3 a_position;
+  in vec2 a_texCoord;
+  in vec4 a_color;
+
+  out vec4 v_color;
+  out vec2 v_uv0;
+
+  vec4 vert () {
+    vec4 pos = vec4(a_position, 1);
+    
+    #if USE_LOCAL
+      pos = cc_matWorld * pos;
+    #endif
+
+    #if USE_PIXEL_ALIGNMENT
+      pos = cc_matView * pos;
+      pos.xyz = floor(pos.xyz);
+      pos = cc_matProj * pos;
+    #endif
+
+    pos = cc_matViewProj * pos;
+
+    v_uv0 = a_texCoord;
+    v_color = a_color;
+
+    return pos;
+  }
+}%
+
+CCProgram fs %{
+  precision highp float;
+  #include <embedded-alpha>
+  #include <alpha-test>
+  #include <cc-global>
+
+  in vec4 v_color;
+  in vec2 v_uv0;
+
+  #pragma builtin(local)
+  layout(set = 2, binding = 11) uniform sampler2D cc_spriteTexture;
+
+  #if SHOW_GRADIENT
+  uniform gradient{
+    vec4 startColor;
+    vec4 endColor;
+    float horizontal;
+    float vertical;
+    float useGradient;
+  };
+  #endif
+
+  vec4 getTextureColor(sampler2D mainTexture, vec2 uv) {
+    if (uv.x > 1.0 || uv.x < 0.0 || uv.y > 1.0 || uv.y < 0.0) {
+      return vec4(0.0, 0.0, 0.0, 0.0);
+    }
+    return texture(mainTexture, uv);
+  }
+
+  float getColorAlpha(float angle, float dist, vec2 uv) {
+    // 角度转弧度，公式为：弧度 = 角度 * (pi / 180)
+    float radian = angle * 0.01745329252; // 这个浮点数是 pi / 180
+    vec4 color = getTextureColor(cc_spriteTexture, uv + vec2(dist * cos(radian), dist * sin(radian))); 
+    return color.a;
+  }
+
+  float getAverageAlpha(float dist, vec2 uv) {
+    float totalAlpha = 0.0;
+    totalAlpha += getColorAlpha(0.0, dist, uv);
+    totalAlpha += getColorAlpha(30.0, dist, uv);
+    totalAlpha += getColorAlpha(60.0, dist, uv);
+    totalAlpha += getColorAlpha(90.0, dist, uv);
+    totalAlpha += getColorAlpha(120.0, dist, uv);
+    totalAlpha += getColorAlpha(150.0, dist, uv);
+    totalAlpha += getColorAlpha(180.0, dist, uv);
+    totalAlpha += getColorAlpha(210.0, dist, uv);
+    totalAlpha += getColorAlpha(240.0, dist, uv);
+    totalAlpha += getColorAlpha(270.0, dist, uv);
+    totalAlpha += getColorAlpha(300.0, dist, uv);
+    totalAlpha += getColorAlpha(330.0, dist, uv);
+    return totalAlpha * 0.0833; // 1 / 12 = 0.08333
+  }
+  
+
+  #if SHOW_OUTTER_GLOW
+  uniform outGlow {
+    vec4 outGlowColor;
+    float outGlowColorSize;
+    float outGlowThreshold;
+    float useOutGlow;
+  };
+
+  float getGlowAlpha(vec2 uv) {
+    if (outGlowColorSize == 0.0) {
+      return 0.0;
+    }
+
+    float totalAlpha = 0.0;
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.1, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.2, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.3, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.4, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.5, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.6, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.7, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.8, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 0.9, uv);
+    totalAlpha += getAverageAlpha(outGlowColorSize * 1.0, uv);
+    return totalAlpha * 0.1;
+  }
+
+  #endif
+
+  #if SHOW_SHADOW_1
+  uniform shadow1frag {
+    vec4 shadowColor1;
+    vec2 shadowOffset1;
+    float useShadow1;
+  };
+  #endif
+
+  #if SHOW_SHADOW_2
+  uniform shadow2frag {
+    vec4 shadowColor2;
+    vec2 shadowOffset2;
+    float useShadow2;
+  };
+  #endif
+
+  #if SET_GRAY_1
+  uniform gray1frag {
+    float useGray1;
+  };
+  #endif
+
+  #if SET_GRAY_2
+  uniform gray2frag {
+    float useGray2;
+  };
+  #endif
+
+  #if SET_OFFSET
+  uniform offsetArgs {
+    float horizontalOffsetFactor;
+    float verticalOffsetFactor;
+    float offsetScaleFactor;
+    float useOffset;
+  };
+  #endif
+
+  #if SET_CURVATURE
+  uniform curvatureArgs {
+    float useCurvature;
+    float curvatureFactor;
+  };
+  #endif
+
+  vec4 frag () {
+    vec2 uv = v_uv0;
+    #if SET_OFFSET
+    if (useOffset > 0.0) {
+      float transition_scale = - offsetScaleFactor;
+      // 计算中心点偏移量
+      vec2 offset = v_uv0 - vec2(horizontalOffsetFactor, verticalOffsetFactor);
+      // 计算缩放因子，平滑从左到右
+      float scale = 1.0 - abs(offset.x) * transition_scale;
+      // 计算新的纹理坐标
+      uv = vec2(horizontalOffsetFactor + offset.x * scale, verticalOffsetFactor + offset.y * scale);
+    }
+    #endif
+    # if SET_CURVATURE
+    if (useCurvature > 0.0) {
+      vec2 uv_tmp1 = uv;
+      uv = vec2(uv_tmp1.x, uv_tmp1.y + curvatureFactor * uv_tmp1.x * (1.0 - uv_tmp1.x));
+    }
+    #endif
+
+    vec4 o = vec4(1, 1, 1, 1);
+    o *= CCSampleWithAlphaSeparated(cc_spriteTexture, uv);
+
+    #if SHOW_GRADIENT
+      if (useGradient > 0.0) {
+        float gx = uv.x*horizontal;
+        o.rgb *= mix(startColor, endColor, vec4(gx)).rgb;
+
+        float gy = uv.y*vertical;
+        o.rgb *= mix(startColor, endColor, vec4(gy)).rgb;
+      }
+    #endif
+
+    #if SHOW_SHADOW_1
+      if (useShadow1 > 0.0) {
+        vec4 color_1 = CCSampleWithAlphaSeparated(cc_spriteTexture, uv + shadowOffset1) * vec4(0.0, 0.0, 0.0, 1.0);
+        color_1.r = shadowColor1.r;
+        color_1.g = shadowColor1.g;
+        color_1.b = shadowColor1.b;
+        if (o.a < 0.5) {
+          o = color_1;
+        }
+      }
+    #endif
+
+    #if SHOW_SHADOW_2
+      if (useShadow2 > 0.0) {
+        vec4 color_2 = CCSampleWithAlphaSeparated(cc_spriteTexture, uv + shadowOffset2) * vec4(0.0, 0.0, 0.0, 1.0);
+        color_2.r = shadowColor2.r;
+        color_2.g = shadowColor2.g;
+        color_2.b = shadowColor2.b;
+        if (o.a < 0.5) {
+          o = color_2;
+        }
+      }
+    #endif
+
+    #if SHOW_OUTTER_GLOW
+      if (useOutGlow > 0.0) {
+        float alpha = getGlowAlpha(uv);
+        if (alpha < outGlowThreshold) {
+          alpha = alpha / outGlowThreshold;
+          alpha = -1.0 * (alpha - 1.0) * (alpha - 1.0) * (alpha - 1.0) * (alpha - 1.0) + 1.0;
+        } else {
+          alpha = 0.0;
+        }
+        // 增加亮度
+        alpha = -1.0 * (alpha - 1.0) * (alpha - 1.0) * (alpha - 1.0) * (alpha - 1.0) + 1.0;
+
+        // 裁掉黑影
+        // if (alpha > 0.9) {
+        //   vec4 color_dest = outGlowColor * alpha;
+        //   vec4 color_src = o;
+        //   o = color_src * color_src.a + color_dest * (1.0 - color_src.a);
+        // }
+        vec4 color_dest = outGlowColor * alpha;
+        vec4 color_src = o;
+        o = color_src * color_src.a + color_dest * (1.0 - color_src.a);
+      }
+    #endif
+  
+    o *= v_color;
+
+    #if SET_GRAY_1
+      if (useGray1 > 0.0) {
+        o *= vec4(0.63529, 0.63529, 0.63529, o.a);
+      }
+    #endif
+
+    #if SET_GRAY_2
+      if (useGray2 > 0.0) {
+        float gray = 0.2126 * o.r + 0.7152 * o.g + 0.0722 * o.b;
+        o *= vec4(gray, gray, gray, o.a);
+      }
+    #endif
+
+    ALPHA_TEST(o);
+    return o;
+  }
+}%

@@ -1,0 +1,82 @@
+{
+  "10001": {
+    "type": 0,
+    "typeDesc": "小学",
+    "schoolName": "宠物小学",
+    "course": "小学语文",
+    "counts": 20,
+    "minutes": 60
+  },
+  "10002": {
+    "type": 0,
+    "typeDesc": "小学",
+    "schoolName": "宠物小学",
+    "course": "小学数学",
+    "counts": 20,
+    "minutes": 60
+  },
+  "10003": {
+    "type": 0,
+    "typeDesc": "小学",
+    "schoolName": "宠物小学",
+    "course": "小学体育",
+    "counts": 20,
+    "minutes": 60
+  },
+  "20001": {
+    "type": 1,
+    "typeDesc": "中学",
+    "schoolName": "宠物中学",
+    "course": "中学语文",
+    "counts": 40,
+    "minutes": 60
+  },
+  "20002": {
+    "type": 1,
+    "typeDesc": "中学",
+    "schoolName": "宠物中学",
+    "course": "中学英语",
+    "counts": 40,
+    "minutes": 60
+  },
+  "20003": {
+    "type": 1,
+    "typeDesc": "中学",
+    "schoolName": "宠物中学",
+    "course": "中学数学",
+    "counts": 40,
+    "minutes": 60
+  },
+  "20004": {
+    "type": 1,
+    "typeDesc": "中学",
+    "schoolName": "宠物中学",
+    "course": "中学体育",
+    "counts": 40,
+    "minutes": 60
+  },
+  "30001": {
+    "type": 2,
+    "typeDesc": "大学",
+    "schoolName": "宠物大学",
+    "course": "大学语文",
+    "counts": 80,
+    "minutes": 60
+  },
+  "30002": {
+    "type": 2,
+    "typeDesc": "大学",
+    "schoolName": "宠物大学",
+    "course": "大学数学",
+    "counts": 80,
+    "minutes": 60
+  },
+  "30003": {
+    "type": 2,
+    "typeDesc": "大学",
+    "schoolName": "宠物大学",
+    "course": "大学体育",
+    "counts": 80,
+    "minutes": 60
+  }
+}
