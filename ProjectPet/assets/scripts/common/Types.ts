@@ -56,6 +56,7 @@ export enum EPetActorSpineAnimName {
     DOWN = "down",
 }
 
+
 //#region 宠物相关配置，暂时写在这里，到时候要移放到配置表
 export enum EPetActorPart {
     HEAD = "head",
@@ -158,5 +159,9 @@ export enum EPetSchoolType {
     PRIMARY = 0,
     MIDDLE,
     UNIVERSITY,
+}
+
+export enum EPetSubjectType {
+    // TODO
 }
 //#endregion

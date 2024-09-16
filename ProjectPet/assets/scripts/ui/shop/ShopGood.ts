@@ -8,6 +8,9 @@ import { ICostItemData } from '../common/cost_item/CostItemAlertView';
 import { ItemsManager } from '../../manager/ItemsManager';
 import GameManager from '../../manager/GameManager';
 import TipManager from '../../manager/TipManager';
+import EventManager from 'assets/scripts/core/event/EventManager';
+import { EventName } from 'assets/scripts/common/EventName';
+import { ShopModel } from './ShopModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShopGood')
@@ -29,6 +32,11 @@ export class ShopGood extends Component {
 
     protected onLoad(): void {
         this.btn.setClickFunc(this.goodClicked, this);
+        EventManager.Instance.on(EventName.E_PURCHASE_SHOP_GOOD_BACK, this.onEvtPurchaseBack, this);
+    }
+
+    protected onDestroy() {
+        EventManager.Instance.off(EventName.E_PURCHASE_SHOP_GOOD_BACK, this.onEvtPurchaseBack, this);
     }
 
     public setData(data: [string, IItemsEntity]) {
@@ -66,12 +74,19 @@ export class ShopGood extends Component {
             return;
         }
 
-        ItemsManager.Instance.changePlayerItemCount(itemId, cnt);
+        ShopModel.Instance.purchaseGood(Number(itemId), cnt);
+    }
 
-        
-        GameManager.Instance.money -= costMoney;
-
+    private onEvtPurchaseBack(data: any) {
         CostItemAlertControl.Instance.closePanel();
+
+        if (data.success) {
+            if (data.itemId === this._itemId) {
+                ItemsManager.Instance.changePlayerItemCount(data.itemId, data.buyNum);
+                const costMoney = this._shopItem.value * data.buyNum;
+                GameManager.Instance.money -= costMoney;
+            }
+        }
     }
 }
 

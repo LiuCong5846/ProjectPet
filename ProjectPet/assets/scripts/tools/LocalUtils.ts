@@ -1,9 +1,14 @@
 import { Graphics, Input, Mask, UITransform, input } from "cc";
 import TimerManager from "../core/timer/TimerManager";
+import ObjectUtil from "../core/utils/ObjectUtil";
 
 export default class LocalUtils {
     public static isNil(obj: Object) {
 		return obj === null || obj === undefined;
+	}
+
+	public static deepClone(arg: any) {
+		return ObjectUtil.deepCopy(arg);
 	}
     
     //#region 键盘输入

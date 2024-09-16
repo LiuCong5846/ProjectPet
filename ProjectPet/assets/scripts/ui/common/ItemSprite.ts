@@ -12,5 +12,9 @@ export class ItemSprite extends Component {
         this._itemId = id;
         ItemsManager.Instance.setItemSprFrame(this._itemId, this.node.getComponent(Sprite));
     }
+
+    setItemGray(isGray: boolean) {
+        this.node.getComponent(Sprite).grayscale = isGray;
+    }
 }
 

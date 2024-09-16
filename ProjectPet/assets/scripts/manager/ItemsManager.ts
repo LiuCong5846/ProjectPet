@@ -8,6 +8,7 @@ import EventManager from "../core/event/EventManager";
 import Logger from "../core/utils/Logger";
 import LocalUtils from "../tools/LocalUtils";
 import GameManager from "./GameManager";
+import GameProtocolManager from "./GameProtocolManager";
 import ResManager from "./ResManager";
 
 export class ItemsManager extends Singleton {
@@ -27,6 +28,28 @@ export class ItemsManager extends Singleton {
     private _playerItemsMap: Map<string, number> = new Map();
     get playerItemsMap() {
         return this._playerItemsMap;
+    }
+
+    private _tutelageMap: Map<EItemType, Array<number>> = new Map();
+    public getTutelageItemIdList(iType: EItemType) {
+        return this._tutelageMap.get(iType) || [];
+    }
+    public insertTutelagItemId(iType: EItemType, itemId: number) {
+        let arr = this._tutelageMap.get(iType);
+        if (!arr) {
+            arr = [];
+            this._tutelageMap.set(iType, arr);
+        }
+        if (arr.indexOf(itemId) < 0) {
+            arr.push(itemId);
+        }
+    }
+    public checkItemTutelage(itemId: string) {
+        const cfg = this.getItemCfg(itemId);
+        if (LocalUtils.isNil(cfg)) return false;
+        const type = cfg.type as EItemType;
+        const arr = this.getTutelageItemIdList(type);
+        return arr.indexOf(Number(itemId)) >= 0;
     }
 
     protected init() {
@@ -64,36 +87,38 @@ export class ItemsManager extends Singleton {
     }
 
     public useItem(itemId: string, num: number = 1) {
-        const cfg = this.getItemCfg(itemId);
-        const dataJson = JSON.parse(cfg.dataType || "{}");
-        Logger.log("useItem_dataJson: ", dataJson);
+        // const cfg = this.getItemCfg(itemId);
+        // const dataJson = JSON.parse(cfg.dataType || "{}");
+        // Logger.log("useItem_dataJson: ", dataJson);
 
-        for (let key in dataJson) {
-            const val = dataJson[key];
-            Logger.log(`datajson[${key}]: `, val);
+        // for (let key in dataJson) {
+        //     const val = dataJson[key];
+        //     Logger.log(`datajson[${key}]: `, val);
 
-            let prop: EPlayerPropety = null;
-            switch (key) {
-                case "exp":
-                    prop = EPlayerPropety.GROWTH;
-                    break;
-                case "health":
-                    prop = EPlayerPropety.HEALTH;
-                    break;
-                case "mood":
-                    prop = EPlayerPropety.MOOD;
-                    break;
-                case "clean":
-                    prop = EPlayerPropety.CLEAN;
-                    break;
-                case "hunger":
-                    prop = EPlayerPropety.HUNGRY;
-                    break;
-            }
-            GameManager.Instance.resetPetProp(prop, val * num);
-        }
+        //     let prop: EPlayerPropety = null;
+        //     switch (key) {
+        //         case "exp":
+        //             prop = EPlayerPropety.GROWTH;
+        //             break;
+        //         case "health":
+        //             prop = EPlayerPropety.HEALTH;
+        //             break;
+        //         case "mood":
+        //             prop = EPlayerPropety.MOOD;
+        //             break;
+        //         case "clean":
+        //             prop = EPlayerPropety.CLEAN;
+        //             break;
+        //         case "hunger":
+        //             prop = EPlayerPropety.HUNGRY;
+        //             break;
+        //     }
+        //     GameManager.Instance.resetPetProp(prop, val * num);
+        // }
 
-        EventManager.Instance.emit(EventName.E_ACTOR_LISTEN_STATUS);
+        // EventManager.Instance.emit(EventName.E_ACTOR_LISTEN_STATUS);
+
+        GameProtocolManager.Instance.sendItemUsed(Number(itemId), num);
     }
 
     public async setItemSprFrame(itemId: string, spr: Sprite) {

@@ -229,14 +229,19 @@ export default class ProtocolManager extends Singleton {
         Logger.log("handleServerResponse_response: ", response);
         const handler = this.protocolHandlers.get(ResponseID);
         if (handler) {
-            // 调用注册的协议处理函数
-            const bytes = new Uint8Array(Base64.atob(response.data[ResponseID]).split("").map(c => c.charCodeAt(0)));
-
-            const data = handler.pbType.decode(bytes);
-            Logger.log(JSON.stringify(data));
-
+            const data = this.convertServerData(response.data[ResponseID], handler.pbType);
             handler.pbhandler(data);
         }
+    }
+
+    public convertServerData(asc: string, pbType: any) {
+         // 调用注册的协议处理函数
+         const bytes = new Uint8Array(Base64.atob(asc).split("").map(c => c.charCodeAt(0)));
+
+         const data = pbType.decode(bytes);
+         Logger.log(`handleServerResponse_${ResponseID}: `, JSON.stringify(data));
+
+         return data;
     }
 }
 

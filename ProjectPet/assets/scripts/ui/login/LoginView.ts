@@ -55,6 +55,10 @@ export class LoginView extends ViewBase {
         );
     }
 
+    private onDebugLoginBtnClicked() {
+        this.loginGameS();
+    }
+
     private onLoginBtnClockedAgain() {
         this.loginBtn2.node.active = false;
 
@@ -94,7 +98,7 @@ export class LoginView extends ViewBase {
     }
 
     private editBoxHandle() {
-        GameConfig.code = this.editBox.string;
+        GameConfig.code = this.editBox.string.trim();
         Logger.log("Update Code: ", GameConfig.code);
     }
 }

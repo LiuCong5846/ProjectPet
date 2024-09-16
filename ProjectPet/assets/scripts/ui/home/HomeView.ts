@@ -21,6 +21,7 @@ import { TutelageMainControl } from '../tutelage/TutelageMainControl';
 import { NoticeAlertControl } from '../common/notice/NoticeAlertControl';
 import TipManager from '../../manager/TipManager';
 import { BagController } from '../bag/BagController';
+import { TutelageModel } from '../tutelage/TutelageModel';
 const { ccclass, property } = _decorator;
 
 @ccclass('HomeView')
@@ -253,6 +254,8 @@ export class HomeView extends ViewBase {
         this.setTuteLeftTime();
         this.setPetActionLab();
         this.resetPetsGrowthRateShow();
+
+        TutelageModel.Instance.sendTutelage();
     }
 
     private setTuteLabShow() {
@@ -265,7 +268,7 @@ export class HomeView extends ViewBase {
             return;
         }
         let left = GameManager.Instance.petInfo.nurseTime;
-        this.tutoLeftTimeLab.string = `剩余: ${DateUtils.getFormatBySecond(left, 1)}`;
+        this.tutoLeftTimeLab.string = `剩余: ${DateUtils.getFormatBySecond(left as number, 1)}`;
     }
 
     public setPetActionLab() {
@@ -286,7 +289,7 @@ export class HomeView extends ViewBase {
         }
         let timeTxt = "";
         if (GameManager.Instance.tutelage) {
-            timeTxt = ` ${DateUtils.getFormatBySecond(GameManager.Instance.petInfo.nurseQueueTime, 1)}`;
+            timeTxt = ` ${DateUtils.getFormatBySecond(GameManager.Instance.petInfo.nurseQueueTime as number, 1)}`;
         }
 
         this.petStatusLab.string = `状态 ${actionTxt}${timeTxt}`

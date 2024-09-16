@@ -4,6 +4,7 @@ import GameManager from "../../manager/GameManager";
 import StorageManager from "../../core/storage/StorageManager";
 import EventManager from "../../core/event/EventManager";
 import { EventName } from "../../common/EventName";
+import GameProtocolManager from "assets/scripts/manager/GameProtocolManager";
 
 
 export class TutelageModel extends ModelBase {
@@ -48,6 +49,15 @@ export class TutelageModel extends ModelBase {
         //     this.autoLearn = false;
         // }
         StorageManager.Instance.setById(STORAGE_KEY_AUTO_WORK, flag ? 1 : 0, GameManager.Instance.userId);
+    }
+
+    public sendTutelage() {
+        GameProtocolManager.Instance.sendTutelage(
+            GameManager.Instance.tutelage,
+            this.autoFeed,
+            this.autoWork,
+            this.autoLearn,
+        );
     }
 }
 

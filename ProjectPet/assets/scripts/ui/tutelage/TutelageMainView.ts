@@ -12,6 +12,7 @@ import GameManager from '../../manager/GameManager';
 import { BagModel } from '../bag/BagModel';
 import { EItemType } from '../../common/Types';
 import { IItemsEntity } from '../../config/ItemsEntity';
+import GameProtocolManager from 'assets/scripts/manager/GameProtocolManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('TutelageMainView')
@@ -64,7 +65,7 @@ export class TutelageMainView extends ViewBase {
         this.resetToggles();
         this.setTuteLeftTime();
 
-        this.tutoLeftTimeLab.string = `${DateUtils.getFormatBySecond(GameManager.Instance.petInfo.nurseQueueTime, 1)}`;
+        this.tutoLeftTimeLab.string = `${DateUtils.getFormatBySecond(GameManager.Instance.petInfo.nurseQueueTime as number, 1)}`;
     }
 
     protected _close(): void {
@@ -114,9 +115,15 @@ export class TutelageMainView extends ViewBase {
         this.autoFeed.openToggle();
         this.autoLearn.openToggle();
         this.autoWork.openToggle();
+
+        TutelageModel.Instance.sendTutelage();
     }
 
     private onCloseBtnClicked() {
+        // TODO 托管道具数组
+        const arr = []; // Array<{propId: number, selected: boolean}>
+        GameProtocolManager.Instance.sendTutelageItemsSelect(arr);
+
         TutelageMainControl.Instance.closePanel();
     }
 
@@ -126,6 +133,7 @@ export class TutelageMainView extends ViewBase {
 
     private onSwitchBtnClicked() {
         GameManager.Instance.tutelage = !GameManager.Instance.tutelage;
+        TutelageModel.Instance.sendTutelage();
     }
 
     public setSwitchState() {

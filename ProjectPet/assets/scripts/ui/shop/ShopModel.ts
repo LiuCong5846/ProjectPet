@@ -1,6 +1,10 @@
 import { EItemType } from "../../common/Types";
 import { ItemsManager } from "../../manager/ItemsManager";
 import ModelBase from "../../core/mvc/ModelBase";
+import GameProtocolManager from "assets/scripts/manager/GameProtocolManager";
+import TipManager from "assets/scripts/manager/TipManager";
+import EventManager from "assets/scripts/core/event/EventManager";
+import { EventName } from "assets/scripts/common/EventName";
 
 export class ShopModel extends ModelBase {
     public static get Instance(): ShopModel {
@@ -20,6 +24,28 @@ export class ShopModel extends ModelBase {
             listDtas1.push(tmp);
         }
         return listDtas1;
+    }
+
+    public purchaseGood(propId: number, buyNum: number) {
+        GameProtocolManager.Instance.sendPurchaseShopGood(
+            propId,
+            buyNum,
+            () => {
+                TipManager.Instance.addTipShow("购买成功");
+                EventManager.Instance.emit(EventName.E_PURCHASE_SHOP_GOOD_BACK, {
+                    success: true,
+                    itemId: propId,
+                    buyNum: buyNum,
+                });
+            },
+            () => {
+                TipManager.Instance.addTipShow("购买失败");
+                EventManager.Instance.emit(EventName.E_PURCHASE_SHOP_GOOD_BACK, {
+                    success: false,
+                });
+            },
+            this,
+        );
     }
 }
 

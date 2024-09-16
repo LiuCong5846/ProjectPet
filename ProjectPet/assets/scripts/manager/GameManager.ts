@@ -5,7 +5,7 @@ import { SdkManager } from "./SdkManager";
 import AudioManager from "../core/audio/AudioManager";
 import StorageManager from "../core/storage/StorageManager";
 import { STORAGE_KEY_EFFECT_SWITCH, STORAGE_KEY_EFFECT_VOLUME, STORAGE_KEY_MUSIC_SWITCH, STORAGE_KEY_MUSIC_VOLUME, STORAGE_KEY_VIBRATE_PHONE } from "../common/Consts";
-import { EGameLayers, EPetAction, EPetStatus, EPlayerPropety, ILanguageData } from "../common/Types";
+import { EGameLayers, EPetAction, EPetSchoolType, EPetStatus, EPlayerPropety, ILanguageData } from "../common/Types";
 import { SETTING_TYPE } from "../GameSetting";
 import GameConfig from "../GameConfig";
 import EventManager from "../core/event/EventManager";
@@ -70,7 +70,7 @@ export default class GameManager extends Singleton {
         return `${this._userInfo.id || 0}`;
     }
 
-    private _petInfo: pb.com.wmy.pets.model.proto.Player.IPetsInfo = {
+    private _defaultPetInfo: pb.com.wmy.pets.model.proto.Player.IPetsInfo = {
         id: 0,
         level: 1,
         exp: 0,
@@ -81,32 +81,27 @@ export default class GameManager extends Singleton {
         valHealth: 0,
         health: EPetStatus.HEALTH,
         action: EPetAction.IDLE,
+        action2: 0, // TODO
+        actionEndTime: 0, // TODO
         nurseStatus: 0,
         nurseTime: 0,
         nurseQueueTime: 0,
+        nurseAutoFeed: 0, // TODO
+        nurseAutoWork: 0, // TODO
+        nurseAutoStudy: 0, // TODO
         money: 0,
-    };
+    }
+
+    private _petInfo: pb.com.wmy.pets.model.proto.Player.IPetsInfo = null;
     get petInfo() {
+        if (LocalUtils.isNil(this._petInfo)) {
+            return this._defaultPetInfo;
+        }
         return this._petInfo;
-    }πhome
+    }
     set petInfo(info: pb.com.wmy.pets.model.proto.Player.IPetsInfo) {
         if (LocalUtils.isNil(info)) {
-            this._petInfo = {
-                id: 0,
-                level: 1,
-                exp: 0,
-                growthRate: 0,
-                valHunger: 0,
-                valClean: 0,
-                valMood: 0,
-                valHealth: 0,
-                health: EPetStatus.HEALTH,
-                action: EPetAction.IDLE,
-                nurseStatus: 0,
-                nurseTime: 0,
-                nurseQueueTime: 0,
-                money: 0,
-            };
+            this._petInfo = LocalUtils.deepClone(this._defaultPetInfo);
         } else {
             this._petInfo.id = info.id || 0;
             this._petInfo.level = info.level || 0;
@@ -118,9 +113,14 @@ export default class GameManager extends Singleton {
             this._petInfo.valHealth = info.valHealth || 0;
             this._petInfo.health = info.health || EPetStatus.HEALTH;
             this._petInfo.action = info.action || EPetAction.IDLE;
+            this._petInfo.action2 = info.action2 || 0; // TODO
+            this._petInfo.actionEndTime = info.actionEndTime || 0; // TODO
             this._petInfo.nurseStatus = info.nurseStatus || 0;
             this._petInfo.nurseTime = info.nurseTime || 0;
             this._petInfo.nurseQueueTime = info.nurseQueueTime || 0;
+            this._petInfo.nurseAutoFeed = info.nurseAutoFeed || 0; // TODO
+            this._petInfo.nurseAutoWork = info.nurseAutoWork || 0; // TODO
+            this._petInfo.nurseAutoStudy = info.nurseAutoStudy || 0; // TODO
             this._petInfo.money = info.money || 0;
         }
         Logger.log("this._petInfo: ", this._petInfo);
@@ -148,12 +148,34 @@ export default class GameManager extends Singleton {
   
     // 托管
     get tutelage() {
-        return !!this._petInfo.nurseStatus
+        return !!this._petInfo.nurseStatus;
     }
     set tutelage(flag: boolean) {
         this._petInfo.nurseStatus = flag ? 1 : 0;
         EventManager.Instance.emit(EventName.E_TUTELAGE_SWITCH_CHANGED);
     }
+    get tutelageFeed() {
+        return !!this._petInfo.nurseAutoFeed;
+    }
+    set tutelageFeed(flag: boolean) {
+        this._petInfo.nurseAutoFeed = flag ? 1 : 0;
+        EventManager.Instance.emit(EventName.E_TUTELAGE_FEED_CHANGED);
+    }
+    get tutelageWork() {
+        return !!this._petInfo.nurseAutoWork;
+    }
+    set tutelageWork(flag: boolean) {
+        this._petInfo.nurseAutoWork = flag ? 1 : 0;
+        EventManager.Instance.emit(EventName.E_TUTELAGE_WORK_CHANGED);
+    }
+    get tutelageStudy() {
+        return !!this._petInfo.nurseAutoStudy;
+    }
+    set tutelageStudy(flag: boolean) {
+        this._petInfo.nurseAutoStudy = flag ? 1 : 0;
+        EventManager.Instance.emit(EventName.E_TUTELAGE_STUDY_CHANGED);
+    }
+
     get growthRate() {
         return this._petInfo.growthRate;
     }
@@ -169,6 +191,71 @@ export default class GameManager extends Singleton {
         EventManager.Instance.emit(EventName.E_ACTION_CHANGED);
     }
 
+    //#region 第二版添加
+    // <id, num>
+    private _petsBag: Map<number, number> = new Map(); // TODO
+    public getPetsBagOne(id: number) {
+        return this._petsBag.get(id) || 0;
+    }
+    public getPetsBagAll(formatType: number = 0) {
+        switch (formatType) {
+            case 0:
+                return this._petsBag;
+            case 1:
+                return Array.from(this._petsBag.entries());
+        } 
+    }
+    public setPetsBagOne(id: number, num: number) {
+        this._petsBag.set(id, num);
+    }
+
+    private _tutelageItems: Map<number, number> = new Map();
+    public getTutelageItem(id: number) {
+        return this._tutelageItems.get(id) || 0;
+    }
+    public getTutelageItems(formatType: number = 0) {
+        switch (formatType) {
+            case 0:
+                return this._tutelageItems;
+            case 1:
+                return Array.from(this._tutelageItems.entries());
+        }
+    }
+    public setTutelageItem(id: number, num: number) {
+        this._tutelageItems.set(id, num);
+    }
+
+    private _curEducation = EPetSchoolType.PRIMARY;
+    get curEducation() {
+        return this._curEducation;
+    }
+    set curEducation(education: EPetSchoolType) {
+        this._curEducation = education;
+    }
+
+    private _schoolInfo: Map<EPetSchoolType, pb.com.wmy.pets.model.proto.Player.ISchool> = new Map();
+    public getSchoolOne(schoolType: EPetSchoolType) {
+        return this._schoolInfo.get(schoolType);
+    }
+    public setSchoolOne(schoolType: EPetSchoolType, schoolInfo: pb.com.wmy.pets.model.proto.Player.ISchool) {
+        this._schoolInfo.set(schoolType, schoolInfo);
+    }
+    public getSchoolAll(formatType: number = 0) {
+        switch (formatType) {
+            case 0:
+                return this._schoolInfo;
+            case 1:
+                return Array.from(this._schoolInfo.entries());
+        } 
+    }
+
+    //#endregion
+
+    /**
+     * @deprecated
+     * @param prop 
+     * @param val 
+     */
     public resetPetProp(prop: EPlayerPropety, val: number) {
         switch (prop) {
             case EPlayerPropety.GROWTH:
@@ -297,13 +384,22 @@ export default class GameManager extends Singleton {
             Logger.log("GAME_HEART_BEAT");
 
             // TODO DEMO
-            this.resetPetProp(EPlayerPropety.GROWTH, this._petInfo.growthRate * (1 / 60));
-            this.resetPetProp(EPlayerPropety.MOOD, -10);
-            this.resetPetProp(EPlayerPropety.HEALTH, -20);
-            this.resetPetProp(EPlayerPropety.CLEAN, -30);
-            this.resetPetProp(EPlayerPropety.HUNGRY, -40);
+            // this.resetPetProp(EPlayerPropety.GROWTH, this._petInfo.growthRate * (1 / 60));
+            // this.resetPetProp(EPlayerPropety.MOOD, -10);
+            // this.resetPetProp(EPlayerPropety.HEALTH, -20);
+            // this.resetPetProp(EPlayerPropety.CLEAN, -30);
+            // this.resetPetProp(EPlayerPropety.HUNGRY, -40);
 
-            EventManager.Instance.emit(EventName.E_ACTOR_LISTEN_STATUS);
+            GameProtocolManager.Instance.sendPetInfo(
+                () => {
+                    EventManager.Instance.emit(EventName.E_ACTOR_LISTEN_STATUS);
+                    EventManager.Instance.emit(EventName.E_PROPERTY_VALUE_CHANGED);
+                },
+                () => {
+                    TipManager.Instance.addTipShow("获取数据失败");
+                },
+                this,
+            );
         }
     }
 
@@ -332,6 +428,32 @@ export default class GameManager extends Singleton {
         });
         if (!flag) {
             Logger.log("get pet_info fail!");
+            return flag;
+        }
+
+        // bag_items
+        flag = await new Promise(resolve => {
+            GameProtocolManager.Instance.sendBagItems(
+                () => resolve(true),
+                () => resolve(false),
+                this,
+            );
+        });
+        if (!flag) {
+            Logger.log("get bag_items fail!");
+            return flag;
+        }
+
+        // tutelage_list
+        flag = await new Promise(resolve => {
+            GameProtocolManager.Instance.sendTutelageItemsList(
+                () => resolve(true),
+                () => resolve(false),
+                this,
+            );
+        });
+        if (!flag) {
+            Logger.log("get tutelage_list fail!");
             return flag;
         }
 

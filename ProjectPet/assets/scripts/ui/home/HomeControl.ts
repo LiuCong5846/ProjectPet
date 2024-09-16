@@ -42,11 +42,11 @@ export class HomeControl extends ControlBase {
 
     public async openPanel() {
         await super.openPanel();
-        TimerManager.Instance.doLoopTimer(0, 1000, 0, this.homeTimerHandle, this);
+        //TimerManager.Instance.doLoopTimer(0, 1000, 0, this.homeTimerHandle, this);
     }
 
     public async closePanel() {
-        TimerManager.Instance.remove(this.homeTimerHandle, this);
+        //TimerManager.Instance.remove(this.homeTimerHandle, this);
         await super.closePanel();
     }
 
