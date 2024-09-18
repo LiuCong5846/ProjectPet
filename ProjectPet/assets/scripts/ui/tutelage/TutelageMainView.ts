@@ -12,7 +12,7 @@ import GameManager from '../../manager/GameManager';
 import { BagModel } from '../bag/BagModel';
 import { EItemType } from '../../common/Types';
 import { IItemsEntity } from '../../config/ItemsEntity';
-import GameProtocolManager from 'assets/scripts/manager/GameProtocolManager';
+import GameProtocolManager from '../../manager/GameProtocolManager';
 const { ccclass, property } = _decorator;
 
 @ccclass('TutelageMainView')

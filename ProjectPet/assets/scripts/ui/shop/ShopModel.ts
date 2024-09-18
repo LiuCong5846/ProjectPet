@@ -1,10 +1,10 @@
 import { EItemType } from "../../common/Types";
 import { ItemsManager } from "../../manager/ItemsManager";
 import ModelBase from "../../core/mvc/ModelBase";
-import GameProtocolManager from "assets/scripts/manager/GameProtocolManager";
-import TipManager from "assets/scripts/manager/TipManager";
-import EventManager from "assets/scripts/core/event/EventManager";
-import { EventName } from "assets/scripts/common/EventName";
+import GameProtocolManager from "../../manager/GameProtocolManager";
+import TipManager from "../../manager/TipManager";
+import EventManager from "../../core/event/EventManager";
+import { EventName } from "../../common/EventName";
 
 export class ShopModel extends ModelBase {
     public static get Instance(): ShopModel {

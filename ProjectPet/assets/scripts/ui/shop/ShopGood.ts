@@ -8,8 +8,8 @@ import { ICostItemData } from '../common/cost_item/CostItemAlertView';
 import { ItemsManager } from '../../manager/ItemsManager';
 import GameManager from '../../manager/GameManager';
 import TipManager from '../../manager/TipManager';
-import EventManager from 'assets/scripts/core/event/EventManager';
-import { EventName } from 'assets/scripts/common/EventName';
+import EventManager from '../../core/event/EventManager';
+import { EventName } from '../../common/EventName';
 import { ShopModel } from './ShopModel';
 const { ccclass, property } = _decorator;
 

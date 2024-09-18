@@ -4,7 +4,7 @@ import GameManager from "../../manager/GameManager";
 import StorageManager from "../../core/storage/StorageManager";
 import EventManager from "../../core/event/EventManager";
 import { EventName } from "../../common/EventName";
-import GameProtocolManager from "assets/scripts/manager/GameProtocolManager";
+import GameProtocolManager from "../../manager/GameProtocolManager";
 
 
 export class TutelageModel extends ModelBase {

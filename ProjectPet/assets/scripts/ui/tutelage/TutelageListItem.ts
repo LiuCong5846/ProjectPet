@@ -3,10 +3,10 @@ import { _decorator, Component, Node, Sprite } from 'cc';
 import { GListCell } from '../../component/GListCell';
 import ResManager from '../../manager/ResManager';
 import { ItemSprite } from '../common/ItemSprite';
-import { ItemsManager } from 'assets/scripts/manager/ItemsManager';
-import EventManager from 'assets/scripts/core/event/EventManager';
-import { EventName } from 'assets/scripts/common/EventName';
-import LocalUtils from 'assets/scripts/tools/LocalUtils';
+import { ItemsManager } from '../../manager/ItemsManager';
+import EventManager from '../../core/event/EventManager';
+import { EventName } from '../../common/EventName';
+import LocalUtils from '../../tools/LocalUtils';
 const { ccclass, property } = _decorator;
 
 @ccclass('TutelageListItem')
