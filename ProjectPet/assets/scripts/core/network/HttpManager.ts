@@ -16,9 +16,7 @@ export default class HttpManager extends Singleton {
     }
 
     private setRequestHeader(xhr: XMLHttpRequest, token: string) {
-        if (LocalUtils.isNil(token)) {
-            xhr.setRequestHeader("Authorization", token);
-        }
+        token && xhr.setRequestHeader("Authorization", token);
         // xhr.setRequestHeader("User-Agent", "Apifox/1.0.0 (https://apifox.com)");
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     }

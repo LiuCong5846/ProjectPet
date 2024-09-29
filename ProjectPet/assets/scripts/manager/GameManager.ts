@@ -100,6 +100,7 @@ export default class GameManager extends Singleton {
         return this._petInfo;
     }
     set petInfo(info: pb.com.wmy.pets.model.proto.Player.IPetsInfo) {
+        !this._petInfo && (this._petInfo = {});
         if (LocalUtils.isNil(info)) {
             this._petInfo = LocalUtils.deepClone(this._defaultPetInfo);
         } else {
