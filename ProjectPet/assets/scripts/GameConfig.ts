@@ -27,7 +27,7 @@ export default class GameConfig {
     public static platID: number = 2; //ios 0 /android 1 / pc 2
     public static url: string = "https://pets.2048d.cn/";
 
-    public static token: string = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyMCIsImlkIjoyMCwiaWF0IjoxNzI1MDc1OTY0LCJleHAiOjE3MjUxNDA3NjR9.-rIgqUZKQQ_LT6FKJF5SJP6p4DsSxeXrG7vZm-59wtxZnpp-n7kX5VEKrW00tVBrbtWYGO8x3GZAVXTwoYOi5w";//服务器返回token
+    public static token: string = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiaWQiOjEsImlhdCI6MTcyNzUxNTQ2OCwiZXhwIjoxNzI4NjQxOTQwfQ.Be_nWsMaKVryCtZBgaWHXlO7RAdmZ9s1mx6z_-I1ikgadprLOC2w3vdDFH4yIv_kSyuSVy0MFp1h2dXPcfRuEA";//服务器返回token
     public static openIosPay: boolean = true;//是否开启IOS付费
     public static midasOfferId = '1450076927';//米大师id
     public static midasEnv = 0;//小游戏支付环境 0米大师正式环境 1米大师沙箱环境

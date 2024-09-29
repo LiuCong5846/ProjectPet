@@ -39,7 +39,7 @@ export class LoginView extends ViewBase {
         this.loginBtn.node.active = true;
         this.loginBtn2.node.active = false;
 
-        this.debugNode.active = true;
+        this.debugNode.active = false;
         if (WECHAT) {
             this.debugNode.active = false;
         }
@@ -48,11 +48,15 @@ export class LoginView extends ViewBase {
     private onLoginBtnClocked() {
         this.loginBtn.node.active = false;
         this.loginLab.string = "登入中...";
-        SdkManager.Instance.login(
-            this.onWXLoginHangleS,
-            this.onWXLoginHangleF,
-            this,
-        );
+        if (WECHAT) {
+            SdkManager.Instance.login(
+                this.onWXLoginHangleS,
+                this.onWXLoginHangleF,
+                this,
+            );
+        } else {
+            this.loginGameS();
+        }
     }
 
     private onDebugLoginBtnClicked() {
